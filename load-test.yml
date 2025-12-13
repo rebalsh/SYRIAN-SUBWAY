@@ -1,0 +1,19 @@
+# config:
+#   target: "http://localhost:5000"
+#   phases:
+#     - duration: 30
+#       arrivalRate: 10
+#       name: "المرحلة الأولى"
+#     - duration: 30
+#       arrivalRate: 20
+#       name: "مرحلة الذروة"
+  
+# scenarios:
+#   - name: "اختبار المحطات والرحلات"
+#     flow:
+#       - get:
+#           url: "/api/stations"
+#       - get:
+#           url: "/api/trains"
+#       - get:
+#           url: "/api/trips"
