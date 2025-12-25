@@ -38,21 +38,13 @@
 
 
 
-
-
-
-
-
-
-
-
 const express = require("express");
 const router = express.Router();
 const autoTripController = require("../controllers/autoTripController");
 const authMiddleware = require("../middleware/authMiddleware");
 const roleMiddleware = require("../middleware/roleMiddleware");
 
-// ✅ إنشاء رحلات أوتوماتيكية مع تحديد يدوي - للسوبر أدمن فقط
+// ✅ 1. إنشاء رحلات أوتوماتيكية (يومية لمدة 30 يوم) - للسوبر أدمن فقط
 router.post(
   "/generate",
   authMiddleware,
@@ -60,7 +52,15 @@ router.post(
   autoTripController.generateAutoTrips
 );
 
-// ✅ جلب القطارات المتاحة للاختيار - للسوبر أدمن والمشرف
+// ✅ 2. جلب الخطوط المتاحة - للجميع
+router.get(
+  "/available-lines",
+  authMiddleware,
+  roleMiddleware([1, 2, 3, 4, 5]),
+  autoTripController.getAvailableLines
+);
+
+// ✅ 3. جلب القطارات المتاحة للاختيار - للسوبر أدمن والمشرف
 router.get(
   "/available-trains",
   authMiddleware,
@@ -68,7 +68,7 @@ router.get(
   autoTripController.getAvailableTrainsForSelection
 );
 
-// ✅ جلب السائقين المتاحين للاختيار - للسوبر أدمن والمشرف
+// ✅ 4. جلب السائقين المتاحين للاختيار - للسوبر أدمن والمشرف
 router.get(
   "/available-drivers",
   authMiddleware,
@@ -76,7 +76,7 @@ router.get(
   autoTripController.getAvailableDriversForSelection
 );
 
-// ✅ إدارة جدول الرحلات (تمكين/تعطيل أوقات) - للسوبر أدمن والمشرف
+// ✅ 5. إدارة جدول الرحلات (تمكين/تعطيل أيام) - للسوبر أدمن والمشرف
 router.post(
   "/manage-schedule",
   authMiddleware,
@@ -84,7 +84,7 @@ router.post(
   autoTripController.manageTripSchedule
 );
 
-// ✅ جلب التقويم الشهري للرحلات - للجميع
+// ✅ 6. جلب التقويم الشهري للرحلات (الأساسية فقط) - للجميع
 router.get(
   "/monthly-calendar",
   authMiddleware,
@@ -92,7 +92,7 @@ router.get(
   autoTripController.getMonthlyCalendar
 );
 
-// ✅ جلب إحصائيات الرحلات الأوتوماتيكية - للسوبر أدمن والمشرف
+// ✅ 7. جلب إحصائيات الرحلات الأوتوماتيكية - للسوبر أدمن والمشرف
 router.get(
   "/stats",
   authMiddleware,
@@ -100,7 +100,7 @@ router.get(
   autoTripController.getAutoTripsStats
 );
 
-// ✅ حذف الرحلات الأوتوماتيكية - للسوبر أدمن فقط
+// ✅ 8. حذف الرحلات الأوتوماتيكية - للسوبر أدمن فقط
 router.delete(
   "/delete",
   authMiddleware,
@@ -109,3 +109,73 @@ router.delete(
 );
 
 module.exports = router;
+
+
+
+
+
+
+
+// const express = require("express");
+// const router = express.Router();
+// const autoTripController = require("../controllers/autoTripController");
+// const authMiddleware = require("../middleware/authMiddleware");
+// const roleMiddleware = require("../middleware/roleMiddleware");
+
+// // ✅ إنشاء رحلات أوتوماتيكية مع تحديد يدوي - للسوبر أدمن فقط
+// router.post(
+//   "/generate",
+//   authMiddleware,
+//   roleMiddleware([2]),
+//   autoTripController.generateAutoTrips
+// );
+
+// // ✅ جلب القطارات المتاحة للاختيار - للسوبر أدمن والمشرف
+// router.get(
+//   "/available-trains",
+//   authMiddleware,
+//   roleMiddleware([2, 3]),
+//   autoTripController.getAvailableTrainsForSelection
+// );
+
+// // ✅ جلب السائقين المتاحين للاختيار - للسوبر أدمن والمشرف
+// router.get(
+//   "/available-drivers",
+//   authMiddleware,
+//   roleMiddleware([2, 3]),
+//   autoTripController.getAvailableDriversForSelection
+// );
+
+// // ✅ إدارة جدول الرحلات (تمكين/تعطيل أوقات) - للسوبر أدمن والمشرف
+// router.post(
+//   "/manage-schedule",
+//   authMiddleware,
+//   roleMiddleware([2, 3]),
+//   autoTripController.manageTripSchedule
+// );
+
+// // ✅ جلب التقويم الشهري للرحلات - للجميع
+// router.get(
+//   "/monthly-calendar",
+//   authMiddleware,
+//   roleMiddleware([1, 2, 3, 4, 5]),
+//   autoTripController.getMonthlyCalendar
+// );
+
+// // ✅ جلب إحصائيات الرحلات الأوتوماتيكية - للسوبر أدمن والمشرف
+// router.get(
+//   "/stats",
+//   authMiddleware,
+//   roleMiddleware([2, 3]),
+//   autoTripController.getAutoTripsStats
+// );
+
+// // ✅ حذف الرحلات الأوتوماتيكية - للسوبر أدمن فقط
+// router.delete(
+//   "/delete",
+//   authMiddleware,
+//   roleMiddleware([2]),
+//   autoTripController.deleteAutoTrips
+// );
+
+// module.exports = router;

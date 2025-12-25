@@ -1,6 +1,3 @@
-
-
-// *****************************************************************************************
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
@@ -31,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM("on", "off"),
+      type: DataTypes.ENUM("on", "off", "cancelled", "delayed"),
       allowNull: false,
       defaultValue: "off",
     },
@@ -40,20 +37,25 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     },
-    // 🔴 الحقول الجديدة المضافة
+    // 🔴 الحقول الخاصة بالنظام الجديد
     is_auto_generated: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false
     },
-    is_disabled: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    // ⭐ الحقول الجديدة للنظام البسيط
+    selected_time: {
+      type: DataTypes.TIME,
       allowNull: false
     },
-    discount_type: {
-      type: DataTypes.ENUM('none', 'weekly', 'monthly'),
-      defaultValue: 'none',
+    is_base_trip: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false
+    },
+    duration_hours: {
+      type: DataTypes.INTEGER,
+      defaultValue: 2,
       allowNull: false
     }
   }, {
@@ -63,6 +65,70 @@ module.exports = (sequelize, DataTypes) => {
 
   return Trip;
 };
+
+// *****************************************************************************************
+// const { DataTypes } = require("sequelize");
+
+// module.exports = (sequelize, DataTypes) => {
+//   const Trip = sequelize.define("Trip", {
+//     id: {
+//       type: DataTypes.INTEGER,
+//       autoIncrement: true,
+//       primaryKey: true,
+//     },
+//     driver_id: {
+//       type: DataTypes.INTEGER,
+//       allowNull: false,
+//     },
+//     line_id: {
+//       type: DataTypes.INTEGER,
+//       allowNull: false,
+//     },
+//     train_id: {
+//       type: DataTypes.INTEGER,
+//       allowNull: false,
+//     },
+//     start_time: {
+//       type: DataTypes.DATE,
+//       allowNull: false,
+//     },
+//     end_time: {
+//       type: DataTypes.DATE,
+//       allowNull: false,
+//     },
+//     status: {
+//       type: DataTypes.ENUM("on", "off"),
+//       allowNull: false,
+//       defaultValue: "off",
+//     },
+//     passenger_count: {
+//       type: DataTypes.INTEGER,
+//       allowNull: false,
+//       defaultValue: 0,
+//     },
+//     // 🔴 الحقول الجديدة المضافة
+//     is_auto_generated: {
+//       type: DataTypes.BOOLEAN,
+//       defaultValue: false,
+//       allowNull: false
+//     },
+//     is_disabled: {
+//       type: DataTypes.BOOLEAN,
+//       defaultValue: false,
+//       allowNull: false
+//     },
+//     discount_type: {
+//       type: DataTypes.ENUM('none', 'weekly', 'monthly'),
+//       defaultValue: 'none',
+//       allowNull: false
+//     }
+//   }, {
+//     tableName: "trips",
+//     timestamps: false,
+//   });
+
+//   return Trip;
+// };
 
 
 
