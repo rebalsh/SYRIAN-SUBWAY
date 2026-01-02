@@ -19,13 +19,13 @@ router.get("/prices/all",
 // 🔹 فقط المسؤول (userType=2) يمكنه إدارة الخطوط
 router.post("/", 
   authMiddleware, 
-  roleMiddleware([2]),
+  roleMiddleware(1,[2]),
   lineController.createLine
 );
 
 router.put("/:id", 
   authMiddleware, 
-  roleMiddleware([2]),
+  roleMiddleware([1,2]),
   lineController.updateLine
 );
 

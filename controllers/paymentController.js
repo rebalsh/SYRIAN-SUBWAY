@@ -553,7 +553,7 @@ const { Payment, Ticket, Trip, Line, Station, User, Train, sequelize } = require
 const QRCode = require("qrcode");
 
 // 🔴 **استخدام Stripe test key عام (يعمل 100%)**
-const stripe = require("stripe")("sk_test_51QaV9d2JkLX6pWZv6Yv8Lh5tMx9RcAqwertyuiop");
+const stripe = require("stripe")("sk_test_51SYaII0tdt1GhMNgosg1pmOaGp4qSqkH0U8Xje2OQQhIxNJbc9OLijlDpPnDhWQBop4GII7dRhfNEb2XStTTz5xx00AQYnEF03");
 
 // ✅ **1. إنشاء جلسة دفع Stripe**
 exports.createStripePaymentSession = async (req, res) => {
