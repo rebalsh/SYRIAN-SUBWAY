@@ -906,6 +906,7 @@
 
 
 require("dotenv").config();
+const compression = require('compression');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -913,6 +914,7 @@ const cors = require("cors");
 const { sequelize } = require("./models");
 
 const app = express();
+app.use(compression());  // هذا السطر الوحيد المهم
 
 // 🔧 CORS middleware بسيط
 app.use((req, res, next) => {
@@ -943,6 +945,7 @@ const faultRoutes = require("./routes/faultRoutes");
 const workOrderRoutes = require("./routes/workOrderRoutes");
 const ticketRoutes = require("./routes/ticketRoutes");
 
+const regularTicketRoutes = require("./routes/regularTicketRoutes");
 
 
 const paymentRoutes = require("./routes/paymentRoutes");
@@ -999,6 +1002,7 @@ app.use("/api/faults", faultRoutes);
 app.use("/api/work-orders", workOrderRoutes);
 app.use("/api/tickets", ticketRoutes);
 
+app.use("/api/regular-tickets", regularTicketRoutes);
 
 
 app.use("/api/payments", paymentRoutes);
