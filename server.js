@@ -951,6 +951,17 @@ const regularTicketRoutes = require("./routes/regularTicketRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 
 
+
+
+
+
+const ratingRoutes = require("./routes/ratingRoutes");
+
+
+
+
+
+
 // const paymentManualRouter = express.Router();
 // const { authenticate } = require("./middleware/authMiddleware");
 
@@ -1006,7 +1017,8 @@ app.use("/api/regular-tickets", regularTicketRoutes);
 
 
 app.use("/api/payments", paymentRoutes);
-
+// 
+app.use("/api/ratings", ratingRoutes);
 
 
 // 
